@@ -1,0 +1,116 @@
+<!-- MODAL FORM ADD RECORD ****************************************************  -->
+<div class="modal" tabindex="-1" id="myModal-add-form">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">เพิ่มข้อมูล</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row mt-2">
+          <div class="col">
+            <label class="form-label">ชื่อ-สกุล</label>
+            <input type="text" class="form-control" id="colB_add">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">ตำแหน่ง</label>
+            <select class="form-select" id="colC_add">
+                    <option value="" selected disabled>เลือก</option>
+                    <option value="ข้าราชการ">ข้าราชการ</option>
+                    <option value="ลูกจ้างประจำ">ลูกจ้างประจำ</option>
+                    <option value="พนักงานราชการ">พนักงานราชการ</option>
+                    <option value="พนักงานกระทรวงฯ">พนักงานกระทรวงฯ</option>
+                    <option value="พยาบาลวิชาชีพ">พยาบาลวิชาชีพ</option>
+                    <option value="ผู้ช่วยเหลือคนไข้">ผู้ช่วยเหลือคนไข้</option>
+                    <option value="นักวิชาการ">นักวิชาการ</option>
+                </select>
+          </div>
+          <div class="col">
+            <label class="form-label">หน่วยงาน</label>
+            <select class="form-select" id="colD_add">
+                    <option value="" selected disabled>เลือก</option>
+                    <option value="OPD">OPD</option>
+                    <option value="ER">ER</option>
+                    <option value="Refer">Refer</option>
+                    <option value="กลุ่มการพยาบาล">กลุ่มการพยาบาล</option>
+                    <option value="ECT">ECT</option>
+                    <option value="มุ่งมั่น 2">มุ่งมั่น 2</option>
+                    <option value="มุ่งมั่น 3">มุ่งมั่น 3</option>
+                    <option value="หญิง 6">หญิง 6</option>
+                    <option value="ชาย 5">ชาย 5</option>
+                    <option value="ชาย 7">ชาย 7</option>
+                    <option value="เมตตา">เมตตา</option>
+                    <option value="ประสาทจิตเวช">ประสาทจิตเวช</option>
+                    <option value="ศรีธัญญา 2">ศรีธัญญา 2</option>
+                    <option value="ศรีธัญญา 3">ศรีธัญญา 3</option>
+                    <option value="ศรีธัญญา 5">ศรีธัญญา 5</option>
+                    <option value="ศรีธัญญา 6">ศรีธัญญา 6</option>
+                    <option value="ศรีธัญญา 7">ศรีธัญญา 7</option>
+                    <option value="บ้านเปี่ยมพลัง">บ้านเปี่ยมพลัง</option>
+                    <option value="PHW">PHW</option>
+                    <option value="ฟื้นฟู 1">ฟื้นฟู 1</option>
+                    <option value="ฟื้นฟู 5">ฟื้นฟู 5</option>
+                                      
+                  </select>
+          </div>
+          </div>
+          <div class="row mt-2">
+          <div class="col-md-6">
+            <label class="form-label">วิธีการพัฒนา</label>
+            <select class="form-select" id="colE_add">
+                    <option value="" selected disabled>เลือก</option>
+                    <option value="" selected >ทั้งหมด</option>
+                    <option value="เรียนรู้จากผู้อื่นและการสอนงาน">เรียนรู้จากผู้อื่นและการสอนงาน</option>
+                    <option value="การสอนงาน [Coaching]">การสอนงาน [Coaching]</option>
+                    <option value="โปรแกรมพี่เลี้ยง [Mentoring Pro]">โปรแกรมพี่เลี้ยง [Mentoring Pro]</option>
+                    <option value="การให้คำปรึกษาแนะนำ [Consulting]">การให้คำปรึกษาแนะนำ [Consulting]</option>
+                    <option value="การให้ข้อมูลป้อนกลับ [Feedback]">การให้ข้อมูลป้อนกลับ [Feedback]</option>
+                    <option value="การฝึกงานกับผู้เชี่ยวชาญ [Counterpart]">การฝึกงานกับผู้เชี่ยวชาญ [Counterpart]</option>
+                    <option value="เรียนรู้ด้วยตัวเองและจากการปฏิบัติงาน">เรียนรู้ด้วยตัวเองและจากการปฏิบัติงาน</option>
+                    <option value="การเรียนรู้แบบออนไลน์ [e-Learning]">การเรียนรู้แบบออนไลน์ [e-Learning]</option>
+                    <option value="การลงมือปฏิบัติ [On-the-Job Training]">การลงมือปฏิบัติ [On-the-Job Training]</option>
+                    <option value="การเพิ่มคุณค่าในงาน [Job Enrichment]">การเพิ่มคุณค่าในงาน [Job Enrichment]</option>
+                    <option value="การเพิ่มปริมาณงาน [Job Enlargement]">การเพิ่มปริมาณงาน [Job Enlargement]</option>
+                    <option value="การมอบหมายโครงการ [Project Assignment]">การมอบหมายโครงการ [Project Assignment]</option>
+                    <option value="การหมุนเวียนงาน [Job Rotation]">การหมุนเวียนงาน [Job Rotation]</option>
+                    <option value="การติดตาม/สังเกต [Job Shadowing]">การติดตาม/สังเกต [Job Shadowing]</option>
+                    <option value="การทำกิจกรรม [Activity]">การทำกิจกรรม [Activity]</option>
+                    <option value="การเรียนรู้ด้วยตนเอง [Self-learning]">การเรียนรู้ด้วยตนเอง [Self-learning]</option>
+                    <option value="การเป็นวิทยากรภายใน [Internal Trainer]">การเป็นวิทยากรภายใน [Internal Trainer]</option>
+                    <option value="การดูงานนอกสถานที่ [Site Visit]'">การดูงานนอกสถานที่ [Site Visit]</option>
+                    <option value="การเปรียบเทียบกับคู่แข่ง/คู่เปรียบเทียบ [Benchmarking]">การเปรียบเทียบกับคู่แข่ง/คู่เปรียบเทียบ [Benchmarking]</option>
+                    <option value="เรียนรู้จากการฝึกอบรม">เรียนรู้จากการฝึกอบรม</option>
+                    <option value="การฝึกอบรมในห้องเรียน [Classroom Training]">การฝึกอบรมในห้องเรียน [Classroom Training]</option>
+                    <option value="การประชุม/สัมนา [Meeting/Seminar]">การประชุม/สัมนา [Meeting/Seminar]</option> 
+                    <option value="การให้ทุนการศึกษา [Scholarship]">การให้ทุนการศึกษา [Scholarship]</option>          
+                  </select>          
+          </div>                
+          <div class="col-md-3">
+            <label class="form-label">วันที่เริ่มต้น</label>
+            <input type="date" class="form-control" id="colF_add">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">วันที่สิ้นสุด</label>
+            <input type="date" class="form-control" id="colG_add">
+          </div>
+          </div>
+          <div class="col">
+            <label class="form-label">เนื้อหาที่ได้รับการพัฒนา</label>
+            <input type="text" class="form-control" id="colH_add">
+          </div>             
+          <div class="col">
+          <div class="col text-center">
+            <label class="form-label">อัพโหลดไฟล์</label>
+            <input type="file" class="form-control" id="colI_add">
+            <image alt="preview" class="rounded shadow mt-3" id="preview" style="display: none; max-width: 400px">
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary mt-4" id="add-record-button">บันทึก</button>
+
+      </div>
+    </div>
+  </div>
+</div>
