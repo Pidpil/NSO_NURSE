@@ -1,16 +1,479 @@
 <!DOCTYPE html>
-
 <html>
-   <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-      <base target="_top">
-   </head>
-   <body>
-      <iframe style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;border: 0;" src="https://script.google.com/macros/s/AKfycbzBmqlUKcE_hlcjKGjkMpyRbo-NFbN5fOb5yurqZJYlw68zMCEgUNuv9sEm_UEmK6K5/exec"></iframe>
-   </body>
+
+<head>
+  <base target="_top">
+  <link href="https://unpkg.com/tabulator-tables@5.2.3/dist/css/tabulator.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
+    integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+  <?!= HtmlService.createHtmlOutputFromFile('css').getContent() ?>
+</head>
+
+<body>
+
+  <!-- LOADING ********************************  -->
+  <div id="loading" class="d-flex flex-row justify-content-center align-items-center invisible">
+    <div class="spinner-grow text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="spinner-grow text-secondary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="spinner-grow text-success" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="spinner-grow text-danger" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="spinner-grow text-warning" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="spinner-grow text-info" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+<nav class="navbar bg-danger text-white mb-3">
+  <div class="container">
+    <h3><i class="bi bi-palette2"></i> NSO_HR </h3>
+  </div>
+</nav>
+  <div class="container" id="app" >
+
+    
+    <div class="row">
+      <div class="col mt-3">
+        <label class="form-label"><i class="bi bi-search"></i> ค้นหาจากชื่อสกุลหรือรหัสไอดี</label>
+        <input type="text" class="form-control" id="search-input" placeholder="พิมพ์ชื่อสกุลหรือรหัสไอดี">
+      </div>
+      <div class="col mt-3">
+        <label class="form-label"><i class="bi bi-people-fill"></i> ค้นหาจากวิธีการพัฒนา</label>
+        <select class="form-select" id="filter-diagGroup-input">
+          <option value="" selected >เลือก</option>
+          <option value="เรียนรู้จากผู้อื่นและการสอนงาน">เรียนรู้จากผู้อื่นและการสอนงาน</option>
+          <option value="การสอนงาน [Coaching]">การสอนงาน [Coaching]</option>
+          <option value="โปรแกรมพี่เลี้ยง [Mentoring Pro]">โปรแกรมพี่เลี้ยง [Mentoring Pro]</option>
+          <option value="การให้คำปรึกษาแนะนำ [Consulting]">การให้คำปรึกษาแนะนำ [Consulting]</option>
+          <option value="การให้ข้อมูลป้อนกลับ [Feedback]">การให้ข้อมูลป้อนกลับ [Feedback]</option>
+          <option value="การฝึกงานกับผู้เชี่ยวชาญ [Counterpart]">การฝึกงานกับผู้เชี่ยวชาญ [Counterpart]</option>
+          <option value="เรียนรู้ด้วยตัวเองและจากการปฏิบัติงาน">เรียนรู้ด้วยตัวเองและจากการปฏิบัติงาน</option>
+          <option value="การเรียนรู้แบบออนไลน์ [e-Learning]">การเรียนรู้แบบออนไลน์ [e-Learning]</option>
+          <option value="การลงมือปฏิบัติ [On-the-Job Training]">การลงมือปฏิบัติ [On-the-Job Training]</option>
+          <option value="การเพิ่มคุณค่าในงาน [Job Enrichment]">การเพิ่มคุณค่าในงาน [Job Enrichment]</option>
+          <option value="การเพิ่มปริมาณงาน [Job Enlargement]">การเพิ่มปริมาณงาน [Job Enlargement]</option>
+          <option value="การมอบหมายโครงการ [Project Assignment]">การมอบหมายโครงการ [Project Assignment]</option>
+          <option value="การหมุนเวียนงาน [Job Rotation]">การหมุนเวียนงาน [Job Rotation]</option>
+          <option value="การติดตาม/สังเกต [Job Shadowing]">การติดตาม/สังเกต [Job Shadowing]</option>
+          <option value="การทำกิจกรรม [Activity]">การทำกิจกรรม [Activity]</option>
+          <option value="การเรียนรู้ด้วยตนเอง [Self-learning]">การเรียนรู้ด้วยตนเอง [Self-learning]</option>
+          <option value="การเป็นวิทยากรภายใน [Internal Trainer]">การเป็นวิทยากรภายใน [Internal Trainer]</option>
+          <option value="การดูงานนอกสถานที่ [Site Visit]'">การดูงานนอกสถานที่ [Site Visit]</option>
+          <option value="การเปรียบเทียบกับคู่แข่ง/คู่เปรียบเทียบ [Benchmarking]">การเปรียบเทียบกับคู่แข่ง/คู่เปรียบเทียบ [Benchmarking]</option>
+          <option value="เรียนรู้จากการฝึกอบรม">เรียนรู้จากการฝึกอบรม</option>
+          <option value="การฝึกอบรมในห้องเรียน [Classroom Training]">การฝึกอบรมในห้องเรียน [Classroom Training]</option>
+          <option value="การประชุม/สัมนา [Meeting/Seminar]">การประชุม/สัมนา [Meeting/Seminar]</option> 
+          <option value="การให้ทุนการศึกษา [Scholarship]">การให้ทุนการศึกษา [Scholarship]</option>          
+        </select>               
+      </div>
+    </div>
+    <button type="button" class="btn btn-warning mt-4" id="open-form-record-button"><i class="bi bi-plus-circle-fill"></i> เพิ่มข้อมูล</button>
+    <button type="button" class="btn btn-success mt-4" id="download-excel-button"><i class="bi bi-file-earmark-excel"></i> Load Excel</button>
+    <button type="button" class="btn btn-danger mt-4" onclick="window.print()"><i class="bi bi-printer"></i> Print</button>
+    <div class=" mt-2" id="data-table"></div>
+
+    <?!= HtmlService.createHtmlOutputFromFile('add').getContent() ?>
+    <?!= HtmlService.createHtmlOutputFromFile('edit').getContent() ?>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
+  </script>
+  <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.2.3/dist/js/tabulator.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script type="text/javascript" src="https://oss.sheetjs.com/sheetjs/xlsx.full.min.js"></script>
+  <script type="text/javascript"
+    src="https://firebasestorage.googleapis.com/v0/b/free-program.appspot.com/o/CRUD%20%20BTS%20ver%2010%20-%20%E0%B9%81%E0%B8%88%E0%B8%81%E0%B8%9F%E0%B8%A3%E0%B8%B5.txt?alt=media&token=aca7f7fe-b122-4635-8ba0-53d33fada65a">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.1.1/luxon.min.js"
+    integrity="sha512-hZKz8wkgOcWeZanRioE6H6AC3OJspzJQyDBB5jLoZ1jIKbYDt5MwVIvU703WwE4sjvKZw9uNmmYlt29xKS27RA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
+  <script>
+    // VConsole will be exported to `window.VConsole` by default.
+  var vConsole = new window.VConsole();
+  </script> -->
+  <script>
+    const elements = {}
+      function loadingStart(){
+        document.getElementById("loading").classList.remove("invisible");
+      };
+
+      function loadingEnd(){
+          document.getElementById("loading").classList.add("invisible");
+      };
+       
+      function pageLoad(){
+        loadingStart()
+        loadData()
+      };
+      
+      // **********************************************************************
+      // START LOAD TABULATOR *************************************************
+       var printIcon = function(cell, formatterParams){ //plain text value
+    return `<img src = "https://sv1.picz.in.th/images/2023/03/25/m0WogW.jpg" width="28" height="25"> ` 
+};
+      function loadData(){
+        google.script.run.withSuccessHandler((jsData)=>{
+          getFileForUpload()
+          elements.table = new Tabulator("#data-table", {
+            height:"100%",
+            data: jsData,  
+            reactiveData:true,  
+            layout:"fitColumns",  
+            pagination:"local",
+            paginationSize:10,
+            paginationSizeSelector:[ 10, 15, 20],
+            movableColumns:true,
+            paginationCounter:"rows",
+            index:"ไอดี",   
+
+            columns:[  
+              {title:"รหัส ID", field:"ไอดี",visible:true, download:true},  // ตรง field ตัวเลขต้องตรงกัน
+              {title:"ชื่อสกุล", field:"ชื่อสกุล"},
+              {title:"ตำแหน่ง", field:"ตำแหน่ง"},
+              {title:"หน่วยงาน", field:"หน่วยงาน"},
+              {title:"วิธีการพัฒนา", field:"วิธีการพัฒนา", headerFilter:true },
+              {title:"วันที่เริ่มต้น", field:"วันที่เริ่มต้น"},
+              {title:"วันที่สิ้นสุด", field:"วันที่สิ้นสุด"},
+              {title:"เนื้อหาที่ได้รับการพัฒนา", field:"เนื้อหาที่ได้รับการพัฒนา"},
+              {title:"File", field:"File",hozAlign:"center",vertAlign:"middle", print:false,formatter:printIcon, cellClick:function(e, cell){window.open(cell.getValue())}}
+              ],
+              addRowPos:"top",
+              pagination:true, //enable.
+
+              //ภาษาไทย
+            locale:true,
+                langs:{
+                    "th-th":{
+                        "columns":{
+                            "name":"Name",
+                        },
+                        "data":{
+                            "loading":"Loading",
+                            "error":"Error",
+                        },
+                        "groups":{ 
+                            "item":"วิธีการพัฒนา",
+                            "items":"วิธีการพัฒนา",
+                        },
+                        "pagination":{
+                          "page_size":'แสดง',
+                            "page_title":"Show Page",
+                            "first":'หน้าแรก', 
+                            "first_title":"First Page",
+                            "last":'หน้าสุดท้าย',
+                            "last_title":"Last Page",
+                            "prev":'ก่อนหน้า',
+                            "prev_title":"Prev Page",
+                            "next":'ถัดไป',
+                            "next_title":"Next Page",
+                            "all":"ทั้งหมด",
+                            "counter":{
+                                "showing": "แสดง",
+                                "of": "จาก",
+                                "rows": "แถว",
+                                "pages": "หน้า",
+                            }
+                        },
+                        "headerFilters":{
+                            "default":"กรองข้อมูล...",
+                            "columns":{
+                                "รายการ":"กรองรายการ...",
+                            }
+                        }
+                    }
+                },
+          })
+
+
+          // DELETE RECORD 
+          elements.table.on("rowDeleted", function(row){
+              //row - row component
+              //console.log(row)
+              //console.log(row._row.data.ไอดี) // id ที่ต้องการเข้าถึง
+              const id = row._row.data.ไอดี
+              google.script.run
+                .withSuccessHandler(()=>{
+                  loadingEnd()
+                  deleteSuccessAlert()
+                  })
+                .withFailureHandler((er)=>{
+                  })
+                .deleteRecord({id:id })
+          })
+         
+          elements.table.on("cellClick", function(e, cell){
+            console.log(cell)
+            editLogin()
+            if(cell._cell.column.definition?.title == 'File') return
+            let row = cell._cell.row
+            const custId = row.getData().ไอดี
+            const colB = row.getData().ชื่อสกุล
+            const colC = row.getData().ตำแหน่ง
+            const colD = row.getData().หน่วยงาน
+            const colE = row.getData().วิธีการพัฒนา
+            const colF = row.getData().วันที่เริ่มต้น
+            const colG = row.getData().วันที่สิ้นสุด
+            const colH = row.getData().เนื้อหาที่ได้รับการพัฒนา
+            const colI = row.getData().File
+
+            showModalEditForm(custId,colB,colC,colD,colE,colF,colG,colH,colI)
+
+          });
+          loadingEnd()
+          
+        }).withFailureHandler((er)=>{}).getData()
+
+      };
+
+      function editLogin(){
+        $('#myModal-edit-form').modal('hide')
+        Swal.fire({
+          title: 'รหัสผ่าน',
+          html: `<input type="password" id="password" class="swal2-input" placeholder="Password">`,
+          confirmButtonText: 'ตกลง',
+          focusConfirm: false,
+          preConfirm: () => {
+            const password = Swal.getPopup().querySelector('#password').value
+            if(password == '1234'){
+              $('#myModal-edit-form').modal('show')
+              Swal.fire(`รหัสผ่าน: ถูกต้อง`.trim())
+            }else{
+              Swal.fire(`รหัสผ่าน: ผิด`.trim())
+            }
+            if (!password) {
+              Swal.showValidationMessage(`กรุณาใส่รหัสผ่าน!!`)
+            }
+            return { password: password }
+          }
+        })
+      }
+
+     function setHeaderFilterDiagGroup(e){
+        elements.table.setHeaderFilterValue("วิธีการพัฒนา", e.target.value)
+    };
+    
+    function showModalEditForm(custId,colB,colC,colD,colE,colF,colG,colH,colI){
+      //const myModalEditForm = new bootstrap.Modal(document.getElementById('myModal-edit-form'), {keyboard: false })
+      document.getElementById('customer_id_edit').value = custId
+      document.getElementById('colB_edit').value = colB
+      document.getElementById('colC_edit').value = colC
+      document.getElementById('colD_edit').value = colD
+      document.getElementById('colE_edit').value = colE
+      document.getElementById('colF_edit').value = colF
+      document.getElementById('colG_edit').value = colG
+      document.getElementById('colH_edit').value = colH
+      $('#preview-edit').prop('src',colI)
+      //myModalEditForm.show()
+
+    };
+
+    function openFormRecord(){
+      // const myModalRegist = new bootstrap.Modal(document.getElementById('myModal-add-form'), {keyboard: false })
+      // myModalRegist.show()
+      $('#myModal-add-form').modal('show')
+    };
+
+    function downloadExcel(){
+      // loadingStart()
+      elements.table.download("xlsx", "data.xlsx", {sheetName:"Data"},{
+          documentProcessing:function(workbook){
+              workbook.Props = {
+                  Title: "SheetJS Tutorial",
+                  Subject: "Test",
+                  CreatedDate: new Date(2022,12,19)
+              };
+              return workbook;
+          }
+      })
+    };
+
+    function searchData(e){
+        elements.table.setFilter(
+        [[
+          {field:"ชื่อสกุล",type: "like",value: e.target.value},
+          {field:"ไอดี",type: "like",value: e.target.value},
+          ]]
+        )
+    };
+    //get File for Upload
+    var filedata
+    function getFileForUpload(){
+$('#colI_add, #colI_edit').on('change',function(){
+      let id = $(this).prop('id')
+      filedata ={}
+      let file = $(this)[0].files[0]
+      let fs = new FileReader()
+      fs.onloadend = (e)=>{
+        filedata.data = e.target.result
+        filedata.name = file.name
+        if(id == 'colI_edit') $('#preview-edit').prop('src', filedata.data).show(200)
+        else $('#preview').prop('src', filedata.data).show(200)
+      }
+      fs.readAsDataURL(file)
+    })
+    }
+    
+
+
+
+    // ADD RECORD **************************************
+    function addRecord(){
+      loadingStart()
+      
+      const colB = document.getElementById('colB_add').value  
+      const colC = document.getElementById('colC_add').value 
+      const colD = document.getElementById('colD_add').value 
+      const colE = document.getElementById('colE_add').value 
+      const colF = document.getElementById('colF_add').value
+      const colG = document.getElementById('colG_add').value 
+      const colH = document.getElementById('colH_add').value    
+      const colI = filedata  
+
+      google.script.run
+        .withSuccessHandler((result)=>{
+            elements.table.addData([{ไอดี:result.newId, ชื่อสกุล:colB , ตำแหน่ง:colC , หน่วยงาน:colD, วิธีการพัฒนา:colE, วันที่เริ่มต้น:colF, วันที่สิ้นสุด:colG ,เนื้อหาที่ได้รับการพัฒนา:colH , File: result.fileUrl} ], true);
+
+            document.getElementById('colB_add').value  = ""
+            document.getElementById('colC_add').value = ""
+            document.getElementById('colD_add').value = ""
+            document.getElementById('colE_add').value = ""
+            document.getElementById('colF_add').value = ""
+            document.getElementById('colG_add').value = ""    
+            document.getElementById('colH_add').value = ""    
+
+            loadingEnd()
+            $('#myModal-add-form').modal('hide')
+            addCompleteAlert()
+
+          })
+        .withFailureHandler((er)=>{
+            //console.log("Error Adding")
+          })
+        .addRecord(colB,colC,colD,colE,colF,colG,colH,colI)
+
+    };
+
+
+    // EDIT RECORD  **********************************
+    function editRecord(){
+  loadingStart()
+  const obj = {
+    colB: document.getElementById("colB_edit").value,
+    colC: document.getElementById("colC_edit").value,
+    colD: document.getElementById('colD_edit').value,
+    colE: document.getElementById('colE_edit').value,
+    colF: document.getElementById('colF_edit').value,
+    colG: document.getElementById('colG_edit').value,
+    colH: document.getElementById('colH_edit').value,
+    colI: filedata
+  };
+  
+  const id = document.getElementById("customer_id_edit").value;
+      google.script.run.withSuccessHandler(function(result){
+        console.log(result)
+      elements.table.updateData([{ไอดี:id, ชื่อสกุล:obj.colB , หน่วยงาน:obj.colC , รายการอบรม:obj.colD,  วันที่เริ่มต้น:obj.colE, วันที่สิ้นสุด:obj.colF ,รายละเอียดเพิ่มเติม:obj.colG , File: result.fileUrl }]);
+          loadingEnd()
+          $('#myModal-edit-form').modal('hide')
+          editCompleteAlert()
+      }).editCustomerById(id,obj)
+    };
+
+    // DELETE RECORD  **********************************
+    function deleteRecord(){
+      loadingStart()
+      const id = document.getElementById('customer_id_edit').value
+      elements.table.deleteRow(id) 
+    };
+
+    // ALERT ***********************************
+    function emptyAlert(){
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'กรุณากรอกให้ครบทุกช่อง',
+      })
+    };
+
+    function deleteSuccessAlert(){
+      Swal.fire(
+            'การลบข้อมูล!',
+            'เรียบร้อยแล้ว'
+      )
+    };
+
+
+    function confirmDeleteAlert(){
+      Swal.fire({
+          title: 'คุณแน่ใจที่จะลบ?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            deleteRecord();
+          }
+        })
+    };
+
+    function addCompleteAlert(){
+      // loadData()
+      Swal.fire(
+            'เพิ่มข้อมูล!',
+            'เรียบร้อยแล้ว'
+      )
+    };
+
+    function editCompleteAlert(){
+      // loadData()
+      Swal.fire(
+            'แก้ไขข้อมูล!',
+            'เรียบร้อยแล้ว'
+      )
+    };
+
+    function clickEventHandler(e) {
+      if (e.target.matches("#open-form-record-button")){
+        openFormRecord();
+      }
+      if (e.target.matches("#add-record-button")){
+        if( document.getElementById("colB_add").value == "" || document.getElementById("colC_add").value == "" || document.getElementById("colD_add").value == "" || document.getElementById("colF_add").value == "" || document.getElementById("colE_add").value == "" || document.getElementById("colG_add").value == "" ||!filedata){
+          emptyAlert()
+        } else {
+          addRecord(e);
+        }
+      }
+      if (e.target.matches("#edit-record-button")){
+        editRecord(e);
+      }
+      if (e.target.matches("#delete-record-button")){
+         confirmDeleteAlert()
+      }
+      if (e.target.matches("#download-excel-button")){
+        downloadExcel(e);
+      }
+    };
+
+      document.getElementById("app").addEventListener("click",clickEventHandler);
+      document.getElementById("app").addEventListener("input",inputEventHandler);
+      document.addEventListener('DOMContentLoaded',pageLoad)
+
+  </script>
+
+
+</body>
+
 </html>
-
-
-
-
-
